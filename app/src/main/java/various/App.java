@@ -6,10 +6,11 @@ package various;
 public class App {
  
     public String maskSensitiveData(String errorCode) {
-        String regEx = "(?i)(?<=Password=).+?(?=( |$))"; 
-        String regEx2 = "(?i)(?<=User=).+?(?=( |$))";
-        return errorCode.replaceAll(regEx, "**redacted data**")
-                        .replaceAll(regEx2, "**redacted data**");
+        String regExPassward = "(?i)(?<=Password=).+?(?=( |$))"; 
+        String regExUser = "(?i)(?<=User=).+?(?=( |$))";
+        String redactedString = "**redacted data**";
+        return errorCode.replaceAll(regExPassward, redactedString)
+                        .replaceAll(regExUser, redactedString);
     }
 
     public String getGreeting() {
