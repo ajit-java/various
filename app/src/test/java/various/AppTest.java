@@ -7,8 +7,17 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AppTest {
-    @Test public void appHasAGreeting() {
+    @Test
+    public void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    }
+
+    @Test
+    public void appRemplacesSensitiveInfo() {
+        String expectedString = "com.test.yprofile.report.exception.LookupException: Error: given update for lookup [__default]:[sssddduuudd_profile] can't replace existing spec [LookupExtractorFactoryContainer{version='v0', lookupExtractorFactory={type=cachedNamespace, firstCacheTimeout=120000, extractionNamespace={type=jdbc, table=sssddduuudd_profile, pollPeriod=PT5M, keyColumn=aliasValue, valueColumn=primaryValue, connectorConfig={createTables=true, connectURI=jdbc:mysql://ss.zz-ro-fake.us-east-1.rds.amazonaws.com:3306/lookups?useSSL=true&enabledTLSProtocols=TLSv1.2&requireSSL=true&sslmode=VERIFY_CA&trustCertificateKeyStoreUrl=file:///opt/fake/rds-fake-ca/fake.jks&trustCertificateKeyStorePassword=**redacted data** user=**redacted data** password=**redacted data** with message: null' password=**redacted data**";
+        String errorMessage = "com.test.yprofile.report.exception.LookupException: Error: given update for lookup [__default]:[sssddduuudd_profile] can't replace existing spec [LookupExtractorFactoryContainer{version='v0', lookupExtractorFactory={type=cachedNamespace, firstCacheTimeout=120000, extractionNamespace={type=jdbc, table=sssddduuudd_profile, pollPeriod=PT5M, keyColumn=aliasValue, valueColumn=primaryValue, connectorConfig={createTables=true, connectURI=jdbc:mysql://ss.zz-ro-fake.us-east-1.rds.amazonaws.com:3306/lookups?useSSL=true&enabledTLSProtocols=TLSv1.2&requireSSL=true&sslmode=VERIFY_CA&trustCertificateKeyStoreUrl=file:///opt/fake/rds-fake-ca/fake.jks&trustCertificateKeyStorePassword=pass1, user=ajit, password=pass2}}}}]. with message: null' password=rere";
+        App classUnderTest = new App();
+        assertEquals("sensitive info should have been removed", expectedString, classUnderTest.maskSensitiveData(errorMessage));
     }
 }

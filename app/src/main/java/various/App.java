@@ -5,7 +5,7 @@ package various;
 
 public class App {
  
-    private String maskSensitiveData(String errorCode) {
+    public String maskSensitiveData(String errorCode) {
         String regEx = "(?i)(?<=Password=).+?(?=( |$))"; 
         String regEx2 = "(?i)(?<=User=).+?(?=( |$))";
         return errorCode.replaceAll(regEx, "**redacted data**")
